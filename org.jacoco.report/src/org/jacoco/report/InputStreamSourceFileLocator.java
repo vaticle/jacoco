@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.*;
 
 /**
  * Abstract base class for {@link ISourceFileLocator} locator implementations
@@ -45,12 +46,8 @@ public abstract class InputStreamSourceFileLocator
 
 	public Reader getSourceFile(final String packageName, final String fileName)
 			throws IOException {
-		final InputStream in;
-		if (packageName.length() > 0) {
-			in = getSourceStream(packageName + "/" + fileName);
-		} else {
-			in = getSourceStream(fileName);
-		}
+		final InputStream in = getSourceStream(packageName.split("/"),
+				fileName);
 
 		if (in == null) {
 			return null;
@@ -61,6 +58,19 @@ public abstract class InputStreamSourceFileLocator
 		} else {
 			return new InputStreamReader(in, encoding);
 		}
+	}
+
+	private InputStream getSourceStream(String[] packageName, String fileName)
+			throws IOException {
+		for (int i = 0; i < packageName.length; i++) {
+			final String location = String.join("/",
+					Arrays.copyOfRange(packageName, i, packageName.length));
+			final InputStream in = getSourceStream(location + "/" + fileName);
+			if (in != null) {
+				return in;
+			}
+		}
+		return getSourceStream(fileName);
 	}
 
 	public int getTabWidth() {

@@ -1,6 +1,12 @@
 JaCoCo Java Code Coverage Library
 =================================
 
+# This is a JaCoCo fork to allow package prefixes to be ignored when finding source files
+
+It will produce unexpected results if attempting to generate reports across multiple packages.
+
+See [this comment](https://github.com/jacoco/jacoco/pull/953#issuecomment-540843609) for more details
+
 [![Build Status](https://dev.azure.com/jacoco-org/JaCoCo/_apis/build/status/JaCoCo?branchName=master)](https://dev.azure.com/jacoco-org/JaCoCo/_build/latest?definitionId=1&branchName=master)
 [![Maven Central](https://img.shields.io/maven-central/v/org.jacoco/jacoco.svg)](http://search.maven.org/#search|ga|1|g%3Aorg.jacoco)
 
