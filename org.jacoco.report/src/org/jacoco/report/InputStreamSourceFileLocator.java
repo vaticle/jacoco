@@ -46,7 +46,7 @@ public abstract class InputStreamSourceFileLocator
 
 	public Reader getSourceFile(final String packageName, final String fileName)
 			throws IOException {
-		final InputStream in = findSourceStream(packageName.split("/"),
+		final InputStream in = getSourceStream(packageName.split("/"),
 				fileName);
 
 		if (in == null) {
@@ -60,7 +60,7 @@ public abstract class InputStreamSourceFileLocator
 		}
 	}
 
-	private InputStream findSourceStream(String[] packageName, String fileName)
+	private InputStream getSourceStream(String[] packageName, String fileName)
 			throws IOException {
 		for (int i = 0; i < packageName.length; i++) {
 			final String location = String.join("/",
